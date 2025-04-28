@@ -18,6 +18,7 @@ public class ObstacleCollision : MonoBehaviour
     {
         if (other.CompareTag("Player")) // Check if the collider belongs to the player
         {
+            
             Debug.Log("Game Over!"); // Log a message for debugging
             // Add your game over logic here, e.g., load a Game Over screen or stop the game
             Time.timeScale = 0; // Example: Pause the game
