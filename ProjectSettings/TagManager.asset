@@ -7,6 +7,7 @@ TagManager:
   - Despawner
   - TopPipe
   - BottomPipe
+  - ScoreTag
   layers:
   - Default
   - TransparentFX

@@ -3,50 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-//     public float flapForce = 5f;
-//     private Rigidbody2D rb;
-//     private Animator anim;
-    
-//     private void Awake()
-//     {
-//         rb = GetComponent<Rigidbody2D>();
-//         anim = GetComponent<Animator>();
-//     }
-
-//     public void OnFlap(InputAction.CallbackContext context)
-//     {
-//         if (context.performed) // Jika tombol ditekan
-//         {
-//             rb.linearVelocity = Vector2.up * flapForce;
-//             anim.SetTrigger("Flap");
-//         }
-//     }
-
-//     private void Update()
-//     {
-//         // Animasi transisi ke Fall jika kecepatan negatif
-//         if (rb.linearVelocity.y < 0)
-//         {
-//             anim.SetBool("Falling", true);
-//         }
-//         else
-//         {
-//             anim.SetBool("Falling", false);
-//         }
-//     }
-// }
 public float flapForce = 5f;
     public float maxYPosition = 4.5f;
     public float minYPosition = -4.5f;
+    public int scoreadded;
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool hasStarted = false;
+    [SerializeField] private AudioManager audioManager; // Reference to the AudioManager
+     [SerializeField] private ScoreManager scoreManager; // Reference to the ScoreManager
+     [SerializeField] private GameOverManager gameOverManager;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         rb.gravityScale = 0;
+        scoreManager = FindFirstObjectByType<ScoreManager>(); // Find the ScoreManager in the scene
+        audioManager = FindFirstObjectByType<AudioManager>();
+        gameOverManager = FindFirstObjectByType<GameOverManager>();
+         
     }
     public void OnFlap(InputAction.CallbackContext context)
     {
@@ -60,6 +36,7 @@ public float flapForce = 5f;
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, flapForce);
             animator.SetTrigger("Flap");
+            audioManager.PlayFlapSound(); // Play the flap sound effect
         }
     }
 
@@ -85,5 +62,25 @@ public float flapForce = 5f;
         {
             Destroy(gameObject);
         }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("ScoreTag"))
+        {
+            audioManager.PlayScoreSound();
+            scoreManager.AddScore(scoreadded); // Add score to the ScoreManager
+        }
+        else if (other.CompareTag("TopPipe")|| other.CompareTag("BottomPipe"))
+        {
+            // Play the crash sound effect and set the game over flag to true
+            audioManager.PlayCrashSound(); // Play the crash sound effect
+            gameOverManager.isGameOver = true; // Set the game over flag to true
+        }
+        // else if (other.CompareTag("Ground") || other.CompareTag("Ceiling"))
+        // {
+        //     audioManager.PlayCrashSound();
+        //     gameOverManager.isGameOver = true; // Set the game over flag to true
+        //     // gameOverManager.
+        // }
     }
 }
