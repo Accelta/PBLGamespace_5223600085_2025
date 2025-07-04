@@ -8,6 +8,7 @@ TagManager:
   - TopPipe
   - BottomPipe
   - ScoreTag
+  - GameOverCanvas
   layers:
   - Default
   - TransparentFX

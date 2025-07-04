@@ -11,6 +11,10 @@ public class ObstacleSpawner : MonoBehaviour
 
     void Update()
     {
+        if (!PlayerController.HasGameStarted)
+        {
+            return;
+        }
         timer += Time.deltaTime;
         if (timer >= obstacleData.spawnInterval)
         {

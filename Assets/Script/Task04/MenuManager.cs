@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public void StartGame()
+    public static MenuManager instance;
+    public void quit()
     {
-        // Load the game scene (assuming it's the first scene in the build settings)
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-    }
-    public void quit(){
         Application.Quit();
         Debug.Log("Quit Game"); // Log to the console for debugging
+    }
+    
+    public void disablecanvas(Canvas canvas)
+    {
+        this.gameObject.SetActive(false);
     }
 }
