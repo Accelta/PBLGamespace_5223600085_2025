@@ -51,6 +51,7 @@ public class GameOverManager : MonoBehaviour
     private CanvasGroup canvasGroup;
     public static GameOverManager Instance { get; private set; }
 
+    [SerializeField] ScoreManager scoreManager;
     private bool isGameOver = false;
 
     private void Awake()
@@ -93,6 +94,7 @@ public class GameOverManager : MonoBehaviour
         }
 
         Time.timeScale = 0f;
+        scoreManager.OnGameOver();
     }
 
     private IEnumerator FadeInCanvas()

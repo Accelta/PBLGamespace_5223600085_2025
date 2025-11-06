@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
             // Play the crash sound effect and set the game over flag to true
             audioManager.PlayCrashSound(); // Play the crash sound effect
             gameOverManager.TriggerGameOver();
+            scoreManager.OnGameOver();
         }
         // else if (other.CompareTag("Ground") || other.CompareTag("Ceiling"))
         // {

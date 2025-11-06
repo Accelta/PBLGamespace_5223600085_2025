@@ -9,6 +9,8 @@ TagManager:
   - BottomPipe
   - ScoreTag
   - GameOverCanvas
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
